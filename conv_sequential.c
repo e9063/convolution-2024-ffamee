@@ -3,7 +3,7 @@
 #include<omp.h>
 
 int main(){
-	double start, end;
+	// double start, end;
 
     // ---- input and malloc A, F ----
     int NA, NF;
@@ -21,14 +21,14 @@ int main(){
     // ---- end input and malloc----
 
     // implement here
-	start = omp_get_wtime();
+	// start = omp_get_wtime();
 	for(int i = 0; i <= NA - NF; i++){
 		S[i] = 0;
 		for (int j = 0; j < NF; j++){
 			S[i] += (long long int)(A[i + j]) * (long long int)F[j];
 		}
 	}
-	end = omp_get_wtime();
+	// end = omp_get_wtime();
 
 	// ---- output
 	for(int i = 0; i <= NA - NF; i++){
@@ -41,6 +41,6 @@ int main(){
 	free(S);
     // ---- end free ----
 
-	printf("%f", (double)(end - start));
+	// printf("%f", (double)(end - start));
     return 0;
 }
