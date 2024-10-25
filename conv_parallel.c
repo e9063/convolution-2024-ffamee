@@ -21,28 +21,19 @@ int main(){
 	// ---- end input and malloc----
 
 	// implement here
-	int NUM_THREADS;
-	// if (NF >= 20000 && (NF %  8 < 2 || NF % 8 > 5)){
-	if (NF >= 200000){
-		NUM_THREADS = 8;
-	}
-	else if (NF >= 20000){
-		NUM_THREADS = 4;
-	}
-	else if (NF >= 200){
-		NUM_THREADS = 2;
-	}
-	else{
-		NUM_THREADS = 1;
-	}
 	// start = omp_get_wtime();
 	for(int i = 0; i <= NA - NF; i++){
 		S[i] = 0;
-		#pragma omp parallel num_threads(NUM_THREADS)
+		#pragma omp parallel num_threads(4)
 		{
-			#pragma omp for reduction(+:S[i])
+			long long int thread_sum = 0;
+			#pragma omp for
 			for (int j = 0; j < NF; j++){
-				S[i] += (long long int)(A[i + j]) * (long long int)F[j];
+				thread_sum += (long long int)(A[i + j]) * (long long int)F[j];
+			}
+			#pragma omp critical
+			{
+				S[i] += thread_sum;
 			}
 		}
 	}
