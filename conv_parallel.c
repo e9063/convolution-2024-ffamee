@@ -3,7 +3,6 @@
 #include<omp.h>
 
 int main(){
-	// double start, end;
 
     // ---- input and malloc A, F ----
     int NA, NF;
@@ -21,7 +20,6 @@ int main(){
 	// ---- end input and malloc----
 
 	// implement here
-	// start = omp_get_wtime();
 	for(int i = 0; i <= NA - NF; i++){
 		S[i] = 0;
 		#pragma omp parallel num_threads(4)
@@ -37,7 +35,6 @@ int main(){
 			}
 		}
 	}
-	// end = omp_get_wtime();
 
 	// ---- output
 	for(int i = 0; i <= NA - NF; i++){
@@ -50,6 +47,5 @@ int main(){
 	free(S);
     // ---- end free ----
 
-	// printf("%f", (double)(end - start));
     return 0;
 }
